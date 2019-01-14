@@ -1,0 +1,11 @@
+<html>
+<head>
+<% include partials/head %>
+</head>
+<h2>Verify Email</h2>
+<p>Open your mail and paste the token to verify your account</p>
+<form action="verify" method="POST">
+<input type="text" name="secret_token">
+<input type="submit" class="btn btn-primary" value="Verify">
+</form>
+</html>

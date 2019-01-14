@@ -1,0 +1,22 @@
+<html>
+  <head>
+ <% include partials/head %>
+  </head>
+  <body>
+ <%include partials/menu %>
+ <% include partials/body %>
+<form method="post" action="/adduser">
+<input type="text" name="firstName" placeholder="Enter first name..." required>
+ <input type="text" name="lastName" placeholder="Enter last name..." required>
+ <input type="submit" value="Add Name">
+ </form>
+  <h3></h3><br>
+<p>dg</p>
+
+<% for( var i=0; i < items.length ; i++) { %>
+     < li >
+          <%= items[i].interest[0] %>
+    < /li >
+<% } %>
+  </body>
+</html>

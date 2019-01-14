@@ -1,0 +1,265 @@
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content" name="regform"action="/adduser" method="post" >
+    <div class="cont">
+      <h1>Sign Up</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+	 <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="usrname" id="username"minlength="5"onfocus="fun()"required onblur="fun()">
+	<div class="input-requirements" id="user" style="display:none">
+					<li>At least 5 characters long</li>
+					<li>Must only contain letters and numbers (no special characters)</li>
+</div>      
+
+      <label for="email"><b>Email</b></label>
+      <input type="email" placeholder="Enter Email" name="email" required>
+      
+      <label for="psw"><b>Password</b></label>
+      <input type="password" id="password"placeholder="Enter Password" name="psw" minlength="6" maxlength="100" required  onfocus="funa()"onblur="funa()">
+<div class="input-requirements" id="pass"style="display:none">
+					<li>At least 8 characters long (and less than 100 characters)</li>
+					<li>Contains at least 1 number</li>
+					<li>Contains at least 1 lowercase letter</li>
+					
+</div>      
+
+      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password"id="password_repeat" name="psw-repeat" minlength="6" onchange="return fun()" required>
+      
+       
+      <label for="interests"><b>Interests</b></label>
+	<input type="text" placeholder="Your interests" name="interests">
+<br>
+      <p>By creating an account you agree to our <a href="about/#h1" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+      <div class="clearfix">
+ <input type="submit" class="button signupbtn"value="Sign Up">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="button cancelbtn">Cancel</button>
+       
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+/* ----------------------------
+
+	CustomValidation prototype
+
+	- Keeps track of the list of invalidity messages for this input
+	- Keeps track of what validity checks need to be performed for this input
+	- Performs the validity checks and sends feedback to the front end
+
+---------------------------- */
+
+function CustomValidation(input) {
+	this.invalidities = [];
+	this.validityChecks = [];
+
+	//add reference to the input node
+	this.inputNode = input;
+
+	//trigger method to attach the listener
+	this.registerListener();
+}
+
+CustomValidation.prototype = {
+	addInvalidity: function(message) {
+		this.invalidities.push(message);
+	},
+	getInvalidities: function() {
+		return this.invalidities.join('. \n');
+	},
+	checkValidity: function(input) {
+		for ( var i = 0; i < this.validityChecks.length; i++ ) {
+
+			var isInvalid = this.validityChecks[i].isInvalid(input);
+			if (isInvalid) {
+				this.addInvalidity(this.validityChecks[i].invalidityMessage);
+			}
+
+			var requirementElement = this.validityChecks[i].element;
+
+			if (requirementElement) {
+				if (isInvalid) {
+					requirementElement.classList.add('invalid');
+					requirementElement.classList.remove('valid');
+				} else {
+					requirementElement.classList.remove('invalid');
+					requirementElement.classList.add('valid');
+				}
+
+			} // end if requirementElement
+		} // end for
+	},
+	checkInput: function() { // checkInput now encapsulated
+
+		this.inputNode.CustomValidation.invalidities = [];
+		this.checkValidity(this.inputNode);
+
+		if ( this.inputNode.CustomValidation.invalidities.length === 0 && this.inputNode.value !== '' ) {
+			this.inputNode.setCustomValidity('');
+		} else {
+			var message = this.inputNode.CustomValidation.getInvalidities();
+			this.inputNode.setCustomValidity(message);
+		}
+	},
+	registerListener: function() { //register the listener here
+
+		var CustomValidation = this;
+
+		this.inputNode.addEventListener('keyup', function() {
+			CustomValidation.checkInput();
+		});
+
+
+	}
+
+};
+
+
+
+/* ----------------------------
+
+	Validity Checks
+
+	The arrays of validity checks for each input
+	Comprised of three things
+		1. isInvalid() - the function to determine if the input fulfills a particular requirement
+		2. invalidityMessage - the error message to display if the field is invalid
+		3. element - The element that states the requirement
+
+---------------------------- */
+
+var usernameValidityChecks = [
+	{
+		isInvalid: function(input) {
+			return input.value.length < 5;
+		},
+		invalidityMessage: 'This input needs to be at least 5 characters',
+		element: document.querySelector(' #user li:nth-child(1)')
+	},
+	{
+		isInvalid: function(input) {
+			var illegalCharacters = input.value.match(/[^a-zA-Z0-9]/g);
+			return illegalCharacters ? true : false;
+		},
+		invalidityMessage: 'Only letters and numbers are allowed',
+		element: document.querySelector('#user li:nth-child(2)')
+	}
+];
+
+var passwordValidityChecks = [
+	{
+		isInvalid: function(input) {
+			return input.value.length < 8 | input.value.length > 100;
+		},
+		invalidityMessage: 'This input needs to be between 8 and 100 characters',
+		element: document.querySelector('#pass li:nth-child(1)')
+	},
+	{
+		isInvalid: function(input) {
+			return !input.value.match(/[0-9]/g);
+		},
+		invalidityMessage: 'At least 1 number is required',
+		element: document.querySelector('#pass li:nth-child(2)')
+	},
+	{
+		isInvalid: function(input) {
+			return !input.value.match(/[a-z]/g);
+		},
+		invalidityMessage: 'At least 1 lowercase letter is required',
+		element: document.querySelector('#pass li:nth-child(3)')
+	}
+	
+];
+
+var passwordRepeatValidityChecks = [
+	{
+		isInvalid: function() {
+			return passwordRepeatInput.value != passwordInput.value;
+		},
+		invalidityMessage: 'This password needs to match the first one'
+	}
+];
+
+
+/* ----------------------------
+
+	Setup CustomValidation
+
+	Setup the CustomValidation prototype for each input
+	Also sets which array of validity checks to use for that input
+
+---------------------------- */
+
+var usernameInput = document.getElementById('username');
+var passwordInput = document.getElementById('password');
+var passwordRepeatInput = document.getElementById('password_repeat');
+
+usernameInput.CustomValidation = new CustomValidation(usernameInput);
+usernameInput.CustomValidation.validityChecks = usernameValidityChecks;
+
+passwordInput.CustomValidation = new CustomValidation(passwordInput);
+passwordInput.CustomValidation.validityChecks = passwordValidityChecks;
+
+passwordRepeatInput.CustomValidation = new CustomValidation(passwordRepeatInput);
+passwordRepeatInput.CustomValidation.validityChecks = passwordRepeatValidityChecks;
+
+
+
+
+/* ----------------------------
+
+	Event Listeners
+
+---------------------------- */
+
+var inputs = document.querySelectorAll('input:not([type="submit"])');
+
+
+var submit = document.querySelector('input[type="submit"');
+var form = document.getElementById('registration');
+
+function validate() {
+	for (var i = 0; i < inputs.length; i++) {
+		inputs[i].CustomValidation.checkInput();
+	}
+}
+
+submit.addEventListener('click', validate);
+form.addEventListener('submit', validate);
+function fun()
+{
+var g=document.getElementById("user");
+
+if(g.style.display=="none")
+{g.style.display="block";
+}
+else
+{g.style.display="none";
+}
+}
+function funa()
+{
+var g=document.getElementById("pass");
+
+if(g.style.display=="none")
+{g.style.display="block";
+}
+else
+{g.style.display="none";
+}
+}
+</script>

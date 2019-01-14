@@ -1,0 +1,50 @@
+<html>
+<head>
+<% include partials/head %>
+<title>user profile</title>
+<style>
+</style>
+</head>
+
+<body>
+
+<% include partials/header %>
+<br>
+<hr />
+<table class="table table-hover">
+<tr>
+<td colspan="2"><h3 style="align:center">User Profile</h3></td>
+</tr>
+<tr>
+<td>Username:</td>
+<td><%= items.username %></td>
+</tr>
+<tr>
+<td>Email:</td>
+<td><%= items._id %></td>
+</tr>
+<tr>
+<td>INTERESTS:</td>
+
+<td><%= items.interest %></td>
+</td>
+</tr>
+<tr>
+<td>Postcount:</td>
+<td><%= items.postcount %></td>
+</tr>
+<tr>
+<td>Replycount:</td>
+<td><%= items.replycount %></td>
+</tr>
+<tr>
+<td>Rating:</td>
+<td><%= items.postcount %></td>
+</tr>
+<tr>
+<td>secrettoken:</td>
+<td><%= items.secrettoken %></td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+<head>
+<% include partials/head %>
+<script src="./project/widgEitor/scripts/widgEditor.js"></script>
+<style>
+
+.login
+{left:50%;
+top:40%;
+position:fixed;
+transform:translate(-50%,-40%);
+box-sizing:border-box;
+height:400px;
+width:500px;
+}
+</style>
+
+
+</head>
+
+<body background="postit.jpg" style="background-size:100%">
+<form method="post" action="/postexp" class="login">
+<label>Title</label>
+<input type="text" placeholder="title" style="width:inherit"name="title" required>
+<label>Tags</label>
+<input type="text" placeholder="tags" style="width:inherit" name="tags">
+<label>Content</label>
+ <div id="ORIGINAL_IDWidgContainer" >
+     <textarea cols="50" rows="12"style name="postit" autofocus required>
+
+     </textarea>
+<input type="submit"value="Post" class="btn btn-dark">
+ </div>
+</form>
+</body>
+
+</html>

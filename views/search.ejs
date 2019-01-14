@@ -1,0 +1,138 @@
+<html>
+<head>
+<% include partials/head %>
+<title>Witspace | your journey to success start now</title>
+<style>
+<% include css/form.css %>
+body
+{
+background-size:100%;
+}
+.login
+{left:50%;
+top:45%;
+position:fixed;
+transform:translate(-50%,-30%);
+box-sizing:border-box;
+height:300px;
+width:500px;
+}
+
+.h1
+{
+font-size:300px
+font-style:italic;
+font-weight:bold;
+font-family:monospace;
+margin-left:6px;
+text-align:center;
+padding:10px 10px;
+color: #ffffe6;
+}
+
+
+ul
+{
+   list-style-type: none;
+
+  margin: 5 10;
+  padding: 6;
+position:relative;
+margin-top:30px;
+margin-left:10px;	
+
+}
+ul li
+{
+display:inline-block;
+padding:20px 10px;
+}
+ul li a
+{
+  text-decoration:none;
+
+}
+input[type="search"] {
+  height: var(--fh-input-height);
+  -webkit-appearance: none;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+
+blockquote {
+  position: relative;
+
+ 
+  font-style:italic;
+font-family:fantasy;
+  font-size:25px;
+  font-weight:bold;
+  color:white;
+  text-align: center;
+  }
+table
+{
+ width:inherit;
+margin-top:30px;
+ 
+}
+table tr td
+{
+padding:20px 20px;
+font-size:20px;
+
+font-family:sans-serif;
+}
+table tr td a
+{
+text-decoration:none;
+color:black;
+}
+a:hover
+{
+text-decoration:none;
+color:gray;
+}
+</style>
+</head>
+<body background="sea.jpg">
+
+<div  style="position:auto;width:100%">
+
+<button type="submit" class="btn btn-outline-success"style="float:right;overflow:hidden;margin-top:10px;margin-right:2px"
+onclick="document.getElementById('id01').style.display='block'"
+ >Sign Up</button>
+
+<button type="submit" class="btn btn-outline-success" style="float:right;overflow:hidden;margin-top:10px;margin-left:3px"
+onclick="document.getElementById('id02').style.display='block'">Login</button>
+
+
+</div>
+
+<% include partials/signup %>
+<% include partials/login %>
+<div class="login">
+
+
+<form method="post" action="/getdata">
+<h1 class="h1" >WitSpace</h1>
+<blockquote >Your experiences can change lives</blockquote>
+<input type="text" class="form-control" width="100%" placeholder="Search"name="sear"required>
+<br>
+<p align="center"><button type="submit" class="btn btn-success" style="width:30%">Search</button>
+</p>
+</form>
+<table>
+<tr>
+<td>
+<a href="about">About Us</a></td>
+<td><a href="/faq">Faq</a></td>
+<td><a href="/about/#h1">Terms and Conditions</a></td>
+</tr>
+</table>
+</div>
+</body>
+</html>

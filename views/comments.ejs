@@ -1,0 +1,36 @@
+<html>
+<head>
+<% include partials/head %>
+<style>
+</style>
+</head>
+<body>
+<%if (success==true) { %>
+<% include partials/header %>
+
+<% } %>
+
+<%if (success==false) { %>
+<% include partials/headerw %>
+<% include partials/signup %>
+<% include partials/login %>
+<% include sidebar %>
+<% } %>
+
+<div class="container-fluid">
+<h4>Question</h4>
+<h4><%= comments[0].question %></h4>
+<% for(var com in comments) { %>
+<div class="row">
+<div class="col-lg-6">
+<h5>Comment:</h5><%= comments[com].comment  %>
+</div>
+<div class="col-lg-6">
+<h5>Answered By:</h5><%= comments[com].username  %>
+</div>
+</div>
+<% } %>
+</div>
+<% include partials/footer %>
+</body>
+</html>

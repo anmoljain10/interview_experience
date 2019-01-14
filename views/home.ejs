@@ -1,0 +1,96 @@
+<html>
+<head>
+<% include partials/head %>
+<style>
+<% include css/form.css %>
+.style-box
+{
+
+
+width:100%;
+
+}
+.style-box h3
+{
+
+font-family:fantisy;
+font-weight:bold;
+}
+
+
+</style>
+</head>
+<body>
+
+
+<%if (success==true) { %>
+<% include partials/header %>
+
+<% } %>
+
+<%if (success==false) { %>
+<% include partials/headerw %>
+<% include partials/signup %>
+<% include partials/login %>
+<% include sidebar %>
+<% } %>
+
+
+<div class="container" >
+<div class="row">
+<div  class="col-sm-2">
+
+</div>
+
+<div class="col-sm-8" >
+<%if (posted==true) { %>
+
+<h3><%= post._id %></h3>
+<p><%=post.post %></p>
+<p><%= post.date %></p>
+<% } %>
+
+
+<%if(posted==false) { %>
+<%if (items.length==0) { %>
+<p><b>Sorry, No results found</b>|</p>
+<% } %>
+<% for (var key in items) { %>
+<div class="style-box">
+<h3><%= items[key]._id %></h3>
+<br>
+<p><%= items[key].post %></p>
+<div>Posted By:<h5><i><u><b><%= items[key].username %></b></u></i></h5></div>
+<hr width="30px"></hr>
+<h6><b>posted On:</b><%= items[key].date %></h6>
+<br>
+<div style="float:left"><h5><%= items[key].upvote %><i class="fa fa-thumbs-up"style="margin-left:10px"></i></h5></div>
+<div style="float:right"><h5><%= items[key].downvote %><i class="fa fa-thumbs-down"style="margin-left:10px"></i></h5></div>
+
+<form action="comment" method="post">
+<input type="text" placeholder="comment"class="form-control" name="comment" >
+<input type="hidden" name="question" value="<%= items[key].post %>">
+<input type="hidden" name="username" value="<%= items[key].username %>">
+<button type="sumbit" class="btn btn-info" >Comment</button>
+</form>
+<form action="getcomments" method="post">
+<input type="hidden" name="question" value="<%= items[key].post %>">
+<button type="submit" class="btn btn-primary">Show Comments</button>
+</form>
+
+</div>
+
+<% } %>
+<% } %>
+</div>
+<div class="col-sm-2">
+</div>
+</div>
+</div>
+
+<div>
+<% include partials/footer %>
+</div>
+
+</body>
+</html>
