@@ -236,7 +236,7 @@ function getuserinfo(req, res, resultArray, action) {
       else if (action == 2)
         res.render('profile', { success: true, user: result, items: result });
       else if (action == 3)
-        res.render('editprofile', { user: result });
+        res.render('editprofile', { success:true,user: result,items: result });
       else if (action == 4) {
         db.collection('user-infos').updateOne({ username: req.session.username }, { $set: { replycount: result.replycount + 1 } }, function (err, result) {
           db.close();
